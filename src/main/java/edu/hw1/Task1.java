@@ -1,12 +1,11 @@
 package edu.hw1;
 
+@SuppressWarnings("HideUtilityClassConstructor")
 public final class Task1 {
-
-    private Task1() {}
 
     private static final int SECONDS_IN_MINUTE = 60;
 
-    static int minutesToSeconds(String time) {
+    public static int minutesToSeconds(String time) {
 
         if (time != null) {
 

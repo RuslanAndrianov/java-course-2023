@@ -1,11 +1,11 @@
 package edu.hw1;
 
+@SuppressWarnings("HideUtilityClassConstructor")
 public class Task8 {
-    private Task8() {}
 
-    public static final int[] X_MOVES = new int[] {1, 2, 2, 1, -1, -2, -2, -1};
+    private static final int[] X_MOVES = new int[] {1, 2, 2, 1, -1, -2, -2, -1};
 
-    public static final int[] Y_MOVES = new int[] {-2, -1, 1, 2, 2, 1, -1, -2};
+    private static final int[] Y_MOVES = new int[] {-2, -1, 1, 2, 2, 1, -1, -2};
 
     public static boolean knightBoardCapture(int[][] board) {
         int height = board.length;

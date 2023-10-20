@@ -1,12 +1,11 @@
 package edu.hw1;
 
+@SuppressWarnings("HideUtilityClassConstructor")
 public final class Task2 {
 
-    private Task2() {}
+    private static final int BASE_OF_10_SYSTEM = 10;
 
-    public static final int BASE_OF_10_SYSTEM = 10;
-
-    static int countDigits(int n) {
+    public static int countDigits(int n) {
 
         if (n != 0) {
 

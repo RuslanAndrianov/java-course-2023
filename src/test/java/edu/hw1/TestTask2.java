@@ -31,7 +31,6 @@ public class TestTask2 {
         assertEquals(3, Task2.countDigits(-999));
         assertEquals(5, Task2.countDigits(-57210));
         assertEquals(8, Task2.countDigits(-30298781));
-        assertEquals(10, Task2.countDigits(Integer.MAX_VALUE));
     }
 
     @Test

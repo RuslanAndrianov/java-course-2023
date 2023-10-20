@@ -2,13 +2,12 @@ package edu.hw1;
 
 import java.util.Objects;
 
+@SuppressWarnings("HideUtilityClassConstructor")
 public class Task5 {
-
-    private Task5() {}
 
     public static final int MIN_INT_DESCENDANT = 31_112_912;
 
-    public static final int FIRST_TWO_DIGIT_NUMBER = 10;
+    private static final int FIRST_TWO_DIGIT_NUMBER = 10;
 
     public static boolean isPalindromeDescendant(int n) {
 

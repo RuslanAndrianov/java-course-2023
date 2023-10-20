@@ -2,10 +2,10 @@ package edu.hw1;
 
 import java.util.Arrays;
 
+@SuppressWarnings("HideUtilityClassConstructor")
 public class Task3 {
-    private Task3() {}
 
-    public static boolean isNestable(int[] arr1, int[] arr2) {
+     public static boolean isNestable(int[] arr1, int[] arr2) {
         // Ничего нельзя вложить в пустой массив
         if (arr2 == null) {
             return false;

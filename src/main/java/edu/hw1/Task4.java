@@ -1,9 +1,9 @@
 package edu.hw1;
 
+@SuppressWarnings("HideUtilityClassConstructor")
 public class Task4 {
-    private Task4() {}
 
-    public static String fixString(String input) {
+     public static String fixString(String input) {
         if (input != null) {
 
             int numberOfSwaps = input.length() / 2;
