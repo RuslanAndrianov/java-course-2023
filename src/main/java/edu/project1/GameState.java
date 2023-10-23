@@ -1,7 +1,7 @@
 package edu.project1;
 
-@SuppressWarnings("HideUtilityClassConstructor")
-public class GameState {
+public abstract class GameState {
+
     public static final String[] DICTIONARY = new String[] {"encapsulation",
         "polymorphism", "inheritance", "abstraction"};
 
