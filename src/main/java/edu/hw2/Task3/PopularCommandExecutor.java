@@ -1,10 +1,8 @@
 package edu.hw2.Task3;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import edu.hw2.Main;
 
 public final class PopularCommandExecutor {
-    private static final Logger LOGGER = LogManager.getLogger();
     private final ConnectionManager manager;
     private final int maxAttempts;
 
@@ -17,21 +15,21 @@ public final class PopularCommandExecutor {
         tryExecute("apt update && apt upgrade -y");
     }
 
-    void tryExecute(String command) {
-        for (int i = 0; i < maxAttempts; i++) {
+    public void tryExecute(String command) {
+
+        int attempts = 0;
+
+        while (attempts < maxAttempts) {
             try (Connection connection = manager.getConnection()) {
-                if (connection instanceof StableConnection) {
-                    connection.execute(command);
-                    return;
-                } else {
-                    throw new ConnectionException();
-                }
+                attempts++;
+                connection.execute(command);
+                return;
             } catch (ConnectionException e) {
-                if (i == maxAttempts - 1) {
+                if (attempts == maxAttempts) {
                     throw new ConnectionException("Max connection attempts", e);
                 }
             } catch (Exception e) {
-                LOGGER.info(e);
+                Main.LOGGER.info(e);
             }
         }
     }
