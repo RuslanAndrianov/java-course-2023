@@ -1,14 +1,12 @@
 package edu.hw2.Task1;
 
+import org.jetbrains.annotations.NotNull;
+
 public sealed interface Expr {
 
     double evaluate();
 
-    public record Constant(double number) implements Expr {
-
-        public Constant(Expr expr) {
-            this(expr.evaluate());
-        }
+     record Constant(double number) implements Expr {
 
         @Override
         public double evaluate() {
@@ -16,9 +14,9 @@ public sealed interface Expr {
         }
     }
 
-    public record Negate(double number) implements Expr {
+    record Negate(double number) implements Expr {
 
-        public Negate(Expr expr) {
+        public Negate(@NotNull Expr expr) {
             this(expr.evaluate());
         }
 
@@ -28,9 +26,9 @@ public sealed interface Expr {
         }
     }
 
-    public record Addition(double number1, double number2) implements Expr {
+     record Addition(double number1, double number2) implements Expr {
 
-        public Addition(Expr expr1, Expr expr2) {
+        public Addition(@NotNull Expr expr1, @NotNull Expr expr2) {
             this(expr1.evaluate(), expr2.evaluate());
         }
 
@@ -40,8 +38,8 @@ public sealed interface Expr {
         }
     }
 
-    public record Multiplication(double number1, double number2) implements Expr {
-        public Multiplication(Expr expr1, Expr expr2) {
+     record Multiplication(double number1, double number2) implements Expr {
+        public Multiplication(@NotNull Expr expr1, @NotNull Expr expr2) {
             this(expr1.evaluate(), expr2.evaluate());
         }
 
@@ -51,8 +49,8 @@ public sealed interface Expr {
         }
     }
 
-    public record Exponent(double base, double power) implements Expr {
-        public Exponent(Expr expr, double power) {
+     record Exponent(double base, double power) implements Expr {
+        public Exponent(@NotNull Expr expr, double power) {
             this(expr.evaluate(), power);
         }
 
