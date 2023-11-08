@@ -4,7 +4,6 @@ import edu.hw3.Task6.Stock;
 import edu.hw3.Task6.StockMarketPQ;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import java.util.PriorityQueue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -15,13 +14,11 @@ public class TestTask6 {
     void test1() {
 
         StockMarketPQ stockMarketPQ = new StockMarketPQ();
-        PriorityQueue<Stock> stocks = stockMarketPQ.stocks;
 
-        stocks.add(new Stock("Газпром", 100));
-        stocks.add(new Stock("Netflix", 1000));
-        stocks.add(new Stock("Apple", 900));
+        stockMarketPQ.add(new Stock("Газпром", 100));
+        stockMarketPQ.add(new Stock("Netflix", 1000));
+        stockMarketPQ.add(new Stock("Apple", 900));
 
-        assert stocks.peek() != null;
         assertEquals(stockMarketPQ.mostValuableStock().getCompanyName(), "Netflix");
         assertEquals(stockMarketPQ.mostValuableStock().getPrice(), 1000);
     }
@@ -31,11 +28,9 @@ public class TestTask6 {
     void test2() {
 
         StockMarketPQ stockMarketPQ = new StockMarketPQ();
-        PriorityQueue<Stock> stocks = stockMarketPQ.stocks;
 
-        stocks.add(new Stock("Газпром", 100));
+        stockMarketPQ.add(new Stock("Газпром", 100));
 
-        assert stocks.peek() != null;
         assertEquals(stockMarketPQ.mostValuableStock().getCompanyName(), "Газпром");
         assertEquals(stockMarketPQ.mostValuableStock().getPrice(), 100);
     }
@@ -45,13 +40,11 @@ public class TestTask6 {
     void test3() {
 
         StockMarketPQ stockMarketPQ = new StockMarketPQ();
-        PriorityQueue<Stock> stocks = stockMarketPQ.stocks;
 
-        stocks.add(new Stock("Газпром", 100));
-        stocks.add(new Stock("Netflix", 100));
-        stocks.add(new Stock("Apple", 100));
+        stockMarketPQ.add(new Stock("Газпром", 100));
+        stockMarketPQ.add(new Stock("Netflix", 100));
+        stockMarketPQ.add(new Stock("Apple", 100));
 
-        assert stocks.peek() != null;
         assertEquals(stockMarketPQ.mostValuableStock().getCompanyName(), "Газпром");
         assertEquals(stockMarketPQ.mostValuableStock().getPrice(), 100);
     }

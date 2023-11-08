@@ -5,7 +5,7 @@ import java.util.PriorityQueue;
 
 public class StockMarketPQ implements StockMarket {
 
-    public PriorityQueue<Stock> stocks = new PriorityQueue<>(Comparator.comparing(Stock::getPrice).reversed());
+    private final PriorityQueue<Stock> stocks = new PriorityQueue<>(Comparator.comparing(Stock::getPrice).reversed());
 
     @Override
     public void add(Stock stock) {
