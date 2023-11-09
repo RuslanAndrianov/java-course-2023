@@ -72,6 +72,12 @@ public class TestAnimal {
         List<Animal> sortedAnimals2 = sortByWeightDescChooseK(animals2, 5);
         List<Animal> sortedAnimals3 = sortByWeightDescChooseK(animals1, 0);
 
+        try {
+            sortByWeightDescChooseK(animals2, -5);
+        } catch (Exception e) {
+            assertInstanceOf(IllegalArgumentException.class, e);
+        }
+
         ArrayList<Integer> weights1 = new ArrayList<>();
         ArrayList<Integer> weights2 = new ArrayList<>();
 
@@ -145,11 +151,21 @@ public class TestAnimal {
 
         Animal animal1 = findOldestAnimalK(animals1, 3);
         Animal animal2 = findOldestAnimalK(animals2, 5);
-        Animal animal3 = findOldestAnimalK(animals1, 0);
+
+        try {
+            findOldestAnimalK(animals2, -5);
+        } catch (Exception e) {
+            assertInstanceOf(IllegalArgumentException.class, e);
+        }
+
+        try {
+            findOldestAnimalK(animals1, 0);
+        } catch (Exception e) {
+            assertInstanceOf(ArrayIndexOutOfBoundsException.class, e);
+        }
 
         assertEquals(animal1.name(), "Spike");
         assertEquals(animal2.name(), "Fish4"); // В случае равенства смотрим на порядок добавления
-        assertNull(animal3.name());
     }
 
     @Test
@@ -159,10 +175,13 @@ public class TestAnimal {
         Animal animal1 = findHeaviestAnimalWithHeightLowerK(animals1, 100);
         Animal animal2 = findHeaviestAnimalWithHeightLowerK(animals2, 30);
         Animal animal3 = findHeaviestAnimalWithHeightLowerK(animals1, 0);
+        Animal animal4 = findHeaviestAnimalWithHeightLowerK(animals2, -30);
+
 
         assertEquals(animal1.name(), "Marli");
         assertEquals(animal2.name(), "Fish4"); // В случае равенства смотрим на порядок добавления
-        assertNull(animal3.name());
+        assertNull(animal3);
+        assertNull(animal4);
     }
 
     @Test
@@ -314,8 +333,8 @@ public class TestAnimal {
     @Test
     @DisplayName("Тест задачи 17")
     void testTask17() {
-        assertFalse(isSpidersBiteMoreThanDogs(animals1));
-        assertFalse(isSpidersBiteMoreThanDogs(animals2));
+        assertFalse(areSpidersBiteMoreThanDogs(animals1));
+        assertFalse(areSpidersBiteMoreThanDogs(animals2));
     }
 
     @Test
