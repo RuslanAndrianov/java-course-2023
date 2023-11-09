@@ -72,6 +72,12 @@ public class TestAnimal {
         List<Animal> sortedAnimals2 = sortByWeightDescChooseK(animals2, 5);
         List<Animal> sortedAnimals3 = sortByWeightDescChooseK(animals1, 0);
 
+        try {
+            sortByWeightDescChooseK(animals2, -5);
+        } catch (Exception e) {
+            assertInstanceOf(IllegalArgumentException.class, e);
+        }
+
         ArrayList<Integer> weights1 = new ArrayList<>();
         ArrayList<Integer> weights2 = new ArrayList<>();
 
@@ -145,11 +151,21 @@ public class TestAnimal {
 
         Animal animal1 = findOldestAnimalK(animals1, 3);
         Animal animal2 = findOldestAnimalK(animals2, 5);
-        Animal animal3 = findOldestAnimalK(animals1, 0);
+
+        try {
+            findOldestAnimalK(animals1, 0);
+        } catch (Exception e) {
+            assertInstanceOf(ArrayIndexOutOfBoundsException.class, e);
+        }
+
+        try {
+            findOldestAnimalK(animals2, -3);
+        } catch (Exception e) {
+            assertInstanceOf(IllegalArgumentException.class, e);
+        }
 
         assertEquals(animal1.name(), "Spike");
         assertEquals(animal2.name(), "Fish4"); // В случае равенства смотрим на порядок добавления
-        assertNull(animal3.name());
     }
 
     @Test
@@ -162,7 +178,7 @@ public class TestAnimal {
 
         assertEquals(animal1.name(), "Marli");
         assertEquals(animal2.name(), "Fish4"); // В случае равенства смотрим на порядок добавления
-        assertNull(animal3.name());
+        assertNull(animal3);
     }
 
     @Test
@@ -314,14 +330,15 @@ public class TestAnimal {
     @Test
     @DisplayName("Тест задачи 17")
     void testTask17() {
-        assertFalse(isSpidersBiteMoreThanDogs(animals1));
-        assertFalse(isSpidersBiteMoreThanDogs(animals2));
+        assertFalse(areSpidersBiteMoreThanDogs(animals1));
+        assertFalse(areSpidersBiteMoreThanDogs(animals2));
     }
 
     @Test
     @DisplayName("Тест задачи 18")
     void testTask18() {
         assertEquals(findHeaviestFishInLists(animals1, animals2, animalsWithSomeIncorrect).name(), "Fish1");
+        assertEquals(findHeaviestFishInLists(animals1, animals2).name(), "Fish1");
     }
 
     @Test
@@ -329,17 +346,13 @@ public class TestAnimal {
     void testTask19() {
 
         Map<String, Set<ValidationError>> incorrectAnimals = findIncorrectAnimals(animalsWithSomeIncorrect);
-
         ArrayList<Integer> countErrors = new ArrayList<>();
 
         for (Map.Entry<String, Set<ValidationError>> entry : incorrectAnimals.entrySet()) {
-
             int errors = 0;
-
             for (ValidationError ignored : entry.getValue()) {
                 errors++;
             }
-
             countErrors.add(errors);
         }
 
