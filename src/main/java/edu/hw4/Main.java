@@ -41,9 +41,8 @@ public class Main {
     // Task 3
     static @NotNull Map<Type, Integer> createAnimalMap(@NotNull List<Animal> animals) {
 
-        return animals.stream().
-            collect(groupingBy(Animal::type, summingInt(animal -> 1)));
-
+        return animals.stream()
+            .collect(groupingBy(Animal::type, summingInt(animal -> 1)));
     }
 
     // Task 4
