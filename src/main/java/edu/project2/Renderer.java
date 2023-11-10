@@ -16,7 +16,7 @@ public final class Renderer {
         Renderer.maze = maze;
     }
 
-    public @NotNull String render(@NotNull Maze maze) {
+    public @NotNull String render(@NotNull Maze maze) throws IllegalStateException {
 
         StringBuilder renderedMaze = new StringBuilder();
 
@@ -29,6 +29,7 @@ public final class Renderer {
                     case PASSAGE, VISITED -> renderedMaze.append(PASSAGE_CELL);
                     case WALL -> renderedMaze.append(WALL_CELL);
                     case PATH -> renderedMaze.append(PATH_CELL);
+                    default -> throw new IllegalStateException("Incorrect cell type");
                 }
 
                 // Дорендериваем правую границу в случае четной ширины

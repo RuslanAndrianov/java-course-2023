@@ -1,8 +1,9 @@
 package edu.project2;
 
-import org.jetbrains.annotations.NotNull;
 import java.util.Scanner;
+import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings({"HideUtilityClassConstructor", "RegexpSinglelineJava", "MultipleStringLiterals"})
 public class Main {
 
     private static void showInvalidInputMessage() {
@@ -65,6 +66,7 @@ public class Main {
         switch (methodSolve) {
             case "1" -> BFSSolver.solveMaze(maze, start, end);
             case "2" -> DFSSolver.solveMaze(maze, start, end);
+            default -> throw new IllegalStateException("Unexpected value: " + methodSolve);
         }
 
         System.out.println(renderer.render(maze));
