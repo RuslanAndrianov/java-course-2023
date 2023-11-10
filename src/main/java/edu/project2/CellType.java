@@ -1,6 +1,6 @@
 package edu.project2;
 
 public enum CellType {
-    WALL, PASSAGE, VISITED
+    WALL, PASSAGE, VISITED, PATH
 }
 

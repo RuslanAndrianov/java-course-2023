@@ -1,10 +1,8 @@
 package edu.project2;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.Random;
 import org.jetbrains.annotations.NotNull;
 import static edu.project2.CellType.PASSAGE;
 
@@ -19,10 +17,8 @@ public class BFSGenerator {
         // Очередь для ячеек
         Queue<Cell> queue = new LinkedList<>();
 
-        // Начинаем BFS с рандомной ячейки
-        int startX = 1;
-        int startY = 1;
-        Cell startCell = maze.getCell(startY, startX);
+        // Начинаем BFS с рандомной ячейки (1, 1)
+        Cell startCell = maze.getCell(1, 1);
 
         // Стартовая ячейка является проходом
         startCell.type = PASSAGE;
@@ -32,31 +28,27 @@ public class BFSGenerator {
 
         // Пока в очереди есть ячейки
         while (!queue.isEmpty()) {
+
+            // Берем из очереди очередную ячейку
             Cell currentCell = queue.poll();
+
+            // Получаем список ее непроверенных соседей
             List<Cell> unvisitedNeighbors = maze.getUnvisitedNeighbors(currentCell);
 
-            // Рандомно перемешиваем соседей
-            Collections.shuffle(unvisitedNeighbors, new Random());
+            // Для всех непроверенных соседей
+            for (int i = 0; i < unvisitedNeighbors.size(); i++) {
 
-            for (Cell unvisitedNeighbor : unvisitedNeighbors) {
-                int newX = unvisitedNeighbor.x;
-                int newY = unvisitedNeighbor.y;
+                // Берем рандомного непроверенного соседа
+                Cell newCell = unvisitedNeighbors.get((int) (Math.random() * unvisitedNeighbors.size()));
 
-                if (newX == 0
-                    || newX == maze.width - 1
-                    || newY == 0
-                    || newY == maze.height - 1) {
-                    continue;
-                }
+                // Удаляем стену, ведущую к нему
+                maze.removeWall(currentCell, newCell);
 
-                // Удаляем стену, ведущую к соседу
-                maze.removeWall(currentCell, unvisitedNeighbor);
+                // Делаем его проходом
+                newCell.type = PASSAGE;
 
-                // Делаем соседа проходом
-                unvisitedNeighbor.type = PASSAGE;
-
-                // Добавляем соседей в очередь
-                queue.add(maze.getCell(newY, newX));
+                // Добавляем его в очередь
+                queue.add(newCell);
             }
         }
 

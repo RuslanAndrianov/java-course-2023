@@ -27,10 +27,16 @@ public class DFSGenerator {
 
         // Пока в стеке есть ячейки
         while (!stack.isEmpty()) {
+
+            // Берем из стека ячейку
             Cell currentCell = stack.pop();
+
+            // Получаем список ее непроверенных соседей
             List<Cell> unvisitedNeighbors = maze.getUnvisitedNeighbors(currentCell);
 
             if (!unvisitedNeighbors.isEmpty()) {
+
+                // Возвращаем текущую ячейку обратно в стек (у нее еще могут быть соседи)
                 stack.push(currentCell);
 
                 // Берем рандомного соседа

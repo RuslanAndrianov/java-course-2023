@@ -7,16 +7,22 @@ import java.util.Stack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import static edu.project2.CellType.PASSAGE;
+import static edu.project2.CellType.PATH;
 import static edu.project2.CellType.VISITED;
+import static edu.project2.CellType.WALL;
 
 @SuppressWarnings("HideUtilityClassConstructor")
 public class DFSSolver {
 
     public static @Nullable List<Coordinate> solveMaze(@NotNull Maze maze,
-        @NotNull Coordinate start, @NotNull Coordinate end) {
+        @NotNull Coordinate start, @NotNull Coordinate end) throws IllegalArgumentException {
 
         Cell startCell = maze.getCell(start.y(), start.x());
         Cell endCell = maze.getCell(end.y(), end.x());
+
+        if (startCell.type == WALL || endCell.type == WALL) {
+            throw new IllegalArgumentException("Start or end cell must be not wall!");
+        }
 
         Stack<Cell> stack = new Stack<>();
         stack.push(startCell);
@@ -47,6 +53,7 @@ public class DFSSolver {
         Cell curCell = endCell;
 
         while (curCell != null) {
+            curCell.type = PATH;
             path.add(new Coordinate(curCell.y, curCell.x));
             curCell = curCell.parent;
         }

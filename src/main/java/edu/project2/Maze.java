@@ -12,7 +12,7 @@ public class Maze {
 
     public int width;
 
-    private final Cell[][] grid;
+    public Cell[][] grid = null;
 
     public Maze(int height, int width) {
 
@@ -29,6 +29,7 @@ public class Maze {
     }
 
     public Cell getCell(int y, int x) throws IllegalArgumentException {
+
         if (isValidCell(y, x)) {
             return grid[y][x];
         } else {
@@ -36,7 +37,8 @@ public class Maze {
         }
     }
 
-    public List<Cell> getUnvisitedNeighbors(Cell cell) {
+    public List<Cell> getUnvisitedNeighbors(@NotNull Cell cell) {
+
         int y = cell.y;
         int x = cell.x;
         List<Cell> neighbors = getNeighbors(y, x, 2);
@@ -52,6 +54,7 @@ public class Maze {
     }
 
     public List<Cell> getNeighbors(int y, int x, int dist) {
+
         List<Cell> neighbors = new ArrayList<>();
 
         if (isValidCell(y - dist, x)) {

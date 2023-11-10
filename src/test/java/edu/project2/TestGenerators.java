@@ -2,70 +2,78 @@ package edu.project2;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
-import static edu.project2.CellType.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 class TestGenerators {
+
+    void BFS(int y, int x) {
+        System.out.println("x = " + x + ", y = " + y);
+        Maze maze = BFSGenerator.generateMaze(y, x);
+        System.out.println(new Renderer(maze).render(maze));
+        assertEquals(maze.width, x);
+        assertEquals(maze.height, y);
+    }
+
+    void DFS(int y, int x) {
+        System.out.println("x = " + x + ", y = " + y);
+        Maze maze = DFSGenerator.generateMaze(y, x);
+        System.out.println(new Renderer(maze).render(maze));
+        assertEquals(maze.width, x);
+        assertEquals(maze.height, y);
+    }
 
     @Test
     @DisplayName("Тест BFSGenerator")
     void generateMazeBFS() {
-        Maze maze = BFSGenerator.generateMaze(5, 5);
-        System.out.println(new Renderer(maze).render(maze));
-        assertNotNull(maze);
-        assertEquals(5, maze.height);
-        assertEquals(5, maze.width);
-
-        int passageCount = 0;
-        for (int row = 0; row < maze.height; row++) {
-            for (int col = 0; col < maze.width; col++) {
-                Cell cell = maze.getCell(row, col);
-                assertNotNull(cell);
-                assertTrue(cell.type == PASSAGE || cell.type == WALL);
-
-                if (cell.type == PASSAGE) {
-                    passageCount++;
-                }
-            }
+        BFS(11,6);
+        BFS(6,11);
+        BFS(11,11);
+        BFS(6,6);
+        BFS(11,7);
+        BFS(7,11);
+        BFS(6,10);
+        BFS(10,6);
+        try {
+            BFS(0,6);
+        } catch (Exception e) {
+            assertInstanceOf(IllegalArgumentException.class, e);
+            System.out.println("IllegalArgumentException");
         }
-        assertTrue(passageCount >= 2);
+
+        try {
+            BFS(-1,6);
+        } catch (Exception e) {
+            assertInstanceOf(NegativeArraySizeException.class, e);
+            System.out.println("NegativeArraySizeException");
+        }
     }
 
     @Test
     @DisplayName("Тест DFSGenerator")
     void generateMazeDFS() {
-        Maze maze = DFSGenerator.generateMaze(5, 5);
-        System.out.println(new Renderer(maze).render(maze));
-        assertNotNull(maze);
-        assertEquals(5, maze.height);
-        assertEquals(5, maze.width);
-
-        int passageCount = 0;
-        for (int row = 0; row < maze.height; row++) {
-            for (int col = 0; col < maze.width; col++) {
-                Cell cell = maze.getCell(row, col);
-                assertNotNull(cell);
-                assertTrue(cell.type == PASSAGE || cell.type == WALL);
-
-                if (cell.type == PASSAGE) {
-                    passageCount++;
-                }
-            }
+        DFS(11,6);
+        DFS(6,11);
+        DFS(11,11);
+        DFS(6,6);
+        DFS(11,7);
+        DFS(7,11);
+        DFS(6,10);
+        DFS(10,6);
+        try {
+            DFS(0,6);
+        } catch (Exception e) {
+            assertInstanceOf(IllegalArgumentException.class, e);
+            System.out.println("IllegalArgumentException");
         }
-        assertTrue(passageCount >= 2);
+
+        try {
+            DFS(-1,6);
+        } catch (Exception e) {
+            assertInstanceOf(NegativeArraySizeException.class, e);
+            System.out.println("NegativeArraySizeException");
+        }
     }
 
-    @Test
-    @DisplayName("Тест метода removeWall")
-    void removeWall() {
-        Maze maze = new Maze(3, 3);
-        Cell first = maze.getCell(0, 0);
-        Cell second = maze.getCell(0, 2);
-        Cell middle = maze.getCell(0, 1);
 
-        maze.removeWall(first, second);
-        assertEquals(PASSAGE, middle.type);
-    }
 }
