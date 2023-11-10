@@ -12,7 +12,7 @@ public class Maze {
 
     public int width;
 
-    public Cell[][] grid = null;
+    public Cell[][] grid;
 
     public Maze(int height, int width) {
 
