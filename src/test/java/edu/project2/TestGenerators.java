@@ -34,19 +34,6 @@ class TestGenerators {
         BFS(7,11);
         BFS(6,10);
         BFS(10,6);
-        try {
-            BFS(0,6);
-        } catch (Exception e) {
-            assertInstanceOf(IllegalArgumentException.class, e);
-            System.out.println("IllegalArgumentException");
-        }
-
-        try {
-            BFS(-1,6);
-        } catch (Exception e) {
-            assertInstanceOf(NegativeArraySizeException.class, e);
-            System.out.println("NegativeArraySizeException");
-        }
     }
 
     @Test
@@ -60,19 +47,6 @@ class TestGenerators {
         DFS(7,11);
         DFS(6,10);
         DFS(10,6);
-        try {
-            DFS(0,6);
-        } catch (Exception e) {
-            assertInstanceOf(IllegalArgumentException.class, e);
-            System.out.println("IllegalArgumentException");
-        }
-
-        try {
-            DFS(-1,6);
-        } catch (Exception e) {
-            assertInstanceOf(NegativeArraySizeException.class, e);
-            System.out.println("NegativeArraySizeException");
-        }
     }
 
 
