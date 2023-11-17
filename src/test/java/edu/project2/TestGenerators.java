@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 class TestGenerators {
 
     void BFS(int y, int x) {
-        System.out.println("x = " + x + ", y = " + y);
+        System.out.println("x = " + x + ", y = " + y + "\n");
         Maze maze = BFSGenerator.generateMaze(y, x);
         System.out.println(new Renderer(maze).render(maze));
         assertEquals(maze.width, x);
@@ -16,7 +16,7 @@ class TestGenerators {
     }
 
     void DFS(int y, int x) {
-        System.out.println("x = " + x + ", y = " + y);
+        System.out.println("x = " + x + ", y = " + y + "\n");
         Maze maze = DFSGenerator.generateMaze(y, x);
         System.out.println(new Renderer(maze).render(maze));
         assertEquals(maze.width, x);

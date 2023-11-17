@@ -55,7 +55,7 @@ public class TestSolvers {
     }
 
     void BFS(int y, int x) {
-        System.out.println("x = " + x + ", y = " + y);
+        System.out.println("x = " + x + ", y = " + y + "\n");
         Maze maze = BFSGenerator.generateMaze(y, x);
         Coordinate start = new Coordinate(1, 1);
 
@@ -74,7 +74,7 @@ public class TestSolvers {
     }
 
     void DFS(int y, int x) {
-        System.out.println("x = " + x + ", y = " + y);
+        System.out.println("x = " + x + ", y = " + y + "\n");
         Maze maze = DFSGenerator.generateMaze(y, x);
         Coordinate start = new Coordinate(1, 1);
 

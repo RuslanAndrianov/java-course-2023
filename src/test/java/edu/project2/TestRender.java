@@ -17,9 +17,11 @@ public class TestRender {
 
         String printMaze1 =
                 """
-                ###
-                # #
-                ###
+                012
+
+                ### 0
+                # # 1
+                ### 2
                 """;
 
         Renderer renderer = new Renderer(maze1);
@@ -46,11 +48,13 @@ public class TestRender {
 
         String printMaze1 =
             """
-            #######
-            # # # #
-            # # # #
-            #     #
-            #######
+            0123456
+
+            ####### 0
+            # # # # 1
+            # # # # 2
+            #     # 3
+            ####### 4
             """;
 
         Renderer renderer = new Renderer(maze1);
@@ -83,13 +87,15 @@ public class TestRender {
 
         String printMaze1 =
             """
-            #######
-            #     #
-            ##### #
-            #   # #
-            # ### #
-            #     #
-            #######
+            0123456
+
+            ####### 0
+            #     # 1
+            ##### # 2
+            #   # # 3
+            # ### # 4
+            #     # 5
+            ####### 6
             """;
 
         Renderer renderer = new Renderer(maze1);

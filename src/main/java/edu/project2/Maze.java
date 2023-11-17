@@ -28,13 +28,12 @@ public class Maze {
         }
     }
 
-    public Cell getCell(int y, int x) throws IllegalArgumentException {
+    public Cell getCell(int y, int x) {
 
         if (isValidCell(y, x)) {
             return grid[y][x];
-        } else {
-            throw new IllegalArgumentException("Incorrect cell coordinates");
         }
+        return null;
     }
 
     public List<Cell> getUnvisitedNeighbors(@NotNull Cell cell) {
