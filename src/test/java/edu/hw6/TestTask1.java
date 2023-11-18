@@ -22,7 +22,7 @@ public class TestTask1 {
 
         diskMap.saveToFile();
         try {
-            assertTrue(new ArrayList<String>(List.of("key:value\r\n", "key:value\n"))
+            assertTrue(new ArrayList<>(List.of("key:value\r\n", "key:value\n"))
                 .contains(Files.readString(Path.of(diskMap.getFilePath()))));
         } catch (Exception ignored) {}
 
