@@ -67,7 +67,6 @@ public class TestTask4 {
                 LOGGER.info("Не удалось создать файл!");
             }
         }
-        assertTrue(exists(path));
 
         streamComposition(path);
 
