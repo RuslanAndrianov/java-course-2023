@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -97,7 +100,17 @@ public class AsciiDocGenerator {
                 StringBuilder sb = new StringBuilder();
                 boolean firstPrint = true;
 
+                List<Path> sortedPaths = new ArrayList<>();
+
                 for (Path filePath : directoryStream) {
+                    sortedPaths.add(filePath);
+                }
+
+                sortedPaths = sortedPaths.stream()
+                    .sorted(Comparator.comparing(filePath -> filePath.getFileName().toString()))
+                    .toList();
+
+                for (Path filePath : sortedPaths) {
                     if (!isRegularFile(filePath)) {
                         continue;
                     }
