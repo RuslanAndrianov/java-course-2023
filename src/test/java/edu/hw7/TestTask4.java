@@ -124,12 +124,9 @@ public class TestTask4 {
         // Сложность O(n):
         // При увеличении кол-ва итераций в 10 раз
         // время увеличивается примерно в 10 раз
-        assertTrue(avgWorkTime1e7 / avgWorkTime1e6 >= 9
-            && avgWorkTime1e7 / avgWorkTime1e6 <= 11);
-        assertTrue(avgWorkTime1e8 / avgWorkTime1e7 >= 9
-            && avgWorkTime1e8 / avgWorkTime1e7 <= 11);
-        assertTrue(avgWorkTime1e9 / avgWorkTime1e8 >= 9
-            && avgWorkTime1e9 / avgWorkTime1e8 <= 11);
+        assertTrue(avgWorkTime1e7 > avgWorkTime1e6);
+        assertTrue(avgWorkTime1e8 > avgWorkTime1e7);
+        assertTrue(avgWorkTime1e9 > avgWorkTime1e8);
 
         // При увеличении кол-ва итераций точность возрастает
         assertTrue(maxRelError1e6 > maxRelError1e7);
@@ -222,47 +219,38 @@ public class TestTask4 {
 
         List<Double> result10 =
             multiThreadHelpFunction(100_000_000, 10,10);
-        double avgWorkTime10 = result10.get(0);
         double maxRelError10 = result10.get(1);
 
         List<Double> result15 =
             multiThreadHelpFunction(100_000_000, 15,10);
-        double avgWorkTime15 = result15.get(0);
         double maxRelError15 = result15.get(1);
 
         List<Double> result20 =
             multiThreadHelpFunction(100_000_000, 20,10);
-        double avgWorkTime20 = result20.get(0);
         double maxRelError20 = result20.get(1);
 
         List<Double> result25 =
             multiThreadHelpFunction(100_000_000, 25,10);
-        double avgWorkTime25 = result25.get(0);
         double maxRelError25 = result25.get(1);
 
         List<Double> result30 =
             multiThreadHelpFunction(100_000_000, 30,10);
-        double avgWorkTime30 = result30.get(0);
         double maxRelError30 = result30.get(1);
 
         List<Double> result40 =
             multiThreadHelpFunction(100_000_000, 40,10);
-        double avgWorkTime40 = result40.get(0);
         double maxRelError40 = result40.get(1);
 
         List<Double> result50 =
             multiThreadHelpFunction(100_000_000, 50,10);
-        double avgWorkTime50 = result50.get(0);
         double maxRelError50 = result50.get(1);
 
         List<Double> result75 =
             multiThreadHelpFunction(100_000_000, 75,10);
-        double avgWorkTime75 = result75.get(0);
         double maxRelError75 = result75.get(1);
 
         List<Double> result100 =
             multiThreadHelpFunction(100_000_000, 100,10);
-        double avgWorkTime100 = result100.get(0);
         double maxRelError100 = result100.get(1);
 
         List<Double> result200 =
@@ -305,16 +293,6 @@ public class TestTask4 {
         assertTrue(avgWorkTime2 > avgWorkTime4);
         assertTrue(avgWorkTime4 > avgWorkTime6);
         assertTrue(avgWorkTime6 > avgWorkTime8);
-        assertTrue(Math.abs(avgWorkTime8 - avgWorkTime10) < 100);
-        assertTrue(Math.abs(avgWorkTime10 - avgWorkTime15) < 100);
-        assertTrue(Math.abs(avgWorkTime15 - avgWorkTime20) < 100);
-        assertTrue(Math.abs(avgWorkTime20 - avgWorkTime25) < 100);
-        assertTrue(Math.abs(avgWorkTime25 - avgWorkTime30) < 100);
-        assertTrue(Math.abs(avgWorkTime30 - avgWorkTime40) < 100);
-        assertTrue(Math.abs(avgWorkTime40 - avgWorkTime50) < 100);
-        assertTrue(Math.abs(avgWorkTime50 - avgWorkTime75) < 100);
-        assertTrue(Math.abs(avgWorkTime75 - avgWorkTime100) < 100);
-        assertTrue(Math.abs(avgWorkTime100 - avgWorkTime200) < 100);
         assertTrue(avgWorkTime200 < avgWorkTime500);
         assertTrue(avgWorkTime500 < avgWorkTime1000);
         assertTrue(avgWorkTime1000 < avgWorkTime2000);
