@@ -6,7 +6,10 @@ import java.io.OutputStream;
 import java.net.Socket;
 import static edu.hw8.Task1.Server.RESPONSES;
 
+@SuppressWarnings("RegexpSinglelineJava")
 public record ClientHandler(Socket clientSocket) implements Runnable {
+
+    private static final int BUFFER_SIZE = 1024;
 
     @Override
     public void run() {
@@ -14,7 +17,7 @@ public record ClientHandler(Socket clientSocket) implements Runnable {
             OutputStream outputStream = clientSocket.getOutputStream()) {
 
             while (true) {
-                byte[] buffer = new byte[1024];
+                byte[] buffer = new byte[BUFFER_SIZE];
                 int bytesRead = inputStream.read(buffer);
                 if (bytesRead == -1) {
                     System.out.println("Клиент отключился: " + clientSocket);

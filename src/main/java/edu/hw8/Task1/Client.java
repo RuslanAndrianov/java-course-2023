@@ -6,9 +6,14 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
+@SuppressWarnings({"RegexpSinglelineJava", "UncommentedMain"})
 public class Client extends Thread {
+
     private static final String SERVER_ADDRESS = "localhost";
+
     private static final int SERVER_PORT = 8080;
+
+    private static final int BUFFER_SIZE = 1024;
 
     public static void main(String[] args) {
         try {
@@ -37,7 +42,7 @@ public class Client extends Thread {
                 outputStream.write(messageBytes);
 
                 // Получение ответа от сервера
-                byte[] buffer = new byte[1024];
+                byte[] buffer = new byte[BUFFER_SIZE];
                 int bytesRead = inputStream.read(buffer);
 
                 if (bytesRead != -1) {

@@ -7,20 +7,25 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@SuppressWarnings({"UncommentedMain", "RegexpSinglelineJava"})
 public class Server extends Thread {
 
     public static final Map<String, String> RESPONSES = Map.of(
-        "личности", "Не переходи на личности там, где их нет",
-        "оскорбления", "Если твои противники перешли на личные оскорбления, будь уверен(а) — твоя победа не за горами",
-        "глупый", "А я тебе говорил(а), что ты глупый? Так вот, я забираю свои слова обратно... Ты просто бог идиотизма.",
-        "интеллект", "Чем ниже интеллект, тем громче оскорбления"
+        "личности",
+        "Не переходи на личности там, где их нет",
+        "оскорбления",
+        "Если твои противники перешли на личные оскорбления, будь уверен(а) — твоя победа не за горами",
+        "глупый",
+        "А я тебе говорил(а), что ты глупый? Так вот, я забираю свои слова обратно... Ты просто бог идиотизма.",
+        "интеллект",
+        "Чем ниже интеллект, тем громче оскорбления"
     );
 
     public static final int MAX_CLIENTS = 2;
 
     private static final int PORT = 8080;
 
-    public static final ExecutorService executorService = Executors.newFixedThreadPool(MAX_CLIENTS);
+    public static final ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(MAX_CLIENTS);
 
     public static void main(String[] args) {
 
@@ -30,13 +35,13 @@ public class Server extends Thread {
             while (true) {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Подключился новый клиент: " + clientSocket);
-                executorService.execute(new ClientHandler(clientSocket));
+                EXECUTOR_SERVICE.execute(new ClientHandler(clientSocket));
                 // Можно добавить логику для выключения сервера
             }
         } catch (IOException e) {
             System.err.println("Ошибка запуска сервера!");
         } finally {
-            executorService.shutdown();
+            EXECUTOR_SERVICE.shutdown();
         }
     }
 }
