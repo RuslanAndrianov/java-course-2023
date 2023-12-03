@@ -6,7 +6,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Client {
+public class Client extends Thread {
     private static final String SERVER_ADDRESS = "localhost";
     private static final int SERVER_PORT = 8080;
 
@@ -50,7 +50,7 @@ public class Client {
             socket.close();
             System.out.println("Соединение закрыто.");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Не удалось связаться с сервером!");
         }
     }
 }
