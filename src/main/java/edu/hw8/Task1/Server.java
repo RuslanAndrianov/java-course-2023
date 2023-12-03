@@ -11,11 +11,10 @@ public class Server {
     private static final int PORT = 8080;
 
     public static void main(String[] args) {
-        ServerSocket serverSocket;
         ExecutorService executorService = Executors.newFixedThreadPool(MAX_CONNECTIONS);
 
-        try {
-            serverSocket = new ServerSocket(PORT);
+        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+
             System.out.println("Сервер запущен. Ожидание подключения клиентов...");
 
             while (true) {
@@ -30,6 +29,4 @@ public class Server {
             executorService.shutdown();
         }
     }
-
-
 }
