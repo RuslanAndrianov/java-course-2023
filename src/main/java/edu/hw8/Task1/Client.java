@@ -1,37 +1,56 @@
 package edu.hw8.Task1;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Client {
+    private static final String SERVER_ADDRESS = "localhost";
+    private static final int SERVER_PORT = 8080;
 
     public static void main(String[] args) {
-        try (Socket clientSocket = new Socket("localhost", 4004);
-             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()))) {
+        try {
+            // Установление соединения с сервером
+            Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+            System.out.println("Соединение установлено.");
+
+            // Получение входного и выходного потоков
+            InputStream inputStream = socket.getInputStream();
+            OutputStream outputStream = socket.getOutputStream();
+
+            // Создание сканнера для чтения пользовательского ввода
+            Scanner scanner = new Scanner(System.in);
 
             while (true) {
-                System.out.println("HINT! Для завершения работы введите команду exit\n" +
-                    "Введите ключевое слово для генерации цитаты: ");
-                String request = reader.readLine();
+                // Ожидание пользовательского ввода
+                System.out.print("Введите сообщение (или 'exit' для выхода): ");
+                String message = scanner.nextLine();
 
-                if (request.equals("exit")) {
+                if (message.equalsIgnoreCase("exit")) {
                     break;
                 }
 
-                out.write(request + "\n");
-                out.flush();
+                // Отправка сообщения на сервер
+                byte[] messageBytes = message.getBytes();
+                outputStream.write(messageBytes);
 
-                String response = in.readLine();
-                System.out.println("\nДержите сгенерированную остроту:\n" + response + "\n");
+                // Получение ответа от сервера
+                byte[] buffer = new byte[1024];
+                int bytesRead = inputStream.read(buffer);
+
+                if (bytesRead != -1) {
+                    String response = new String(buffer, 0, bytesRead);
+                    System.out.println("Ответ от сервера: " + response);
+                }
             }
+
+            // Закрытие соединения
+            socket.close();
+            System.out.println("Соединение закрыто.");
         } catch (IOException e) {
-            System.err.println("Ошибка соединения с сервером!");
+            e.printStackTrace();
         }
     }
 }
