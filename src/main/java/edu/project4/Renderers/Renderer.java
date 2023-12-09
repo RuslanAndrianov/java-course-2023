@@ -41,19 +41,20 @@ public interface Renderer {
         };
     }
 
-    default void generateSymmetricPoints(Point curPoint, Pixel curPixel, int symmetryAxes, FractalImage image, Rect rectangle) {
+    default void generateSymmetricPoints(Point curPoint, Pixel curPixel,
+        int symmetryAxes, FractalImage image, Rect rectangle) {
         double theta = 0;
-        double XMIN = rectangle.XMIN;
-        double XMAX = rectangle.XMAX;
-        double YMIN = rectangle.YMIN;
-        double YMAX = rectangle.YMAX;
+        double xMin = rectangle.xMin;
+        double xMax = rectangle.xMax;
+        double yMin = rectangle.yMin;
+        double yMax = rectangle.yMax;
         for (int j = 0; j < symmetryAxes; theta += 2 * Math.PI / symmetryAxes, j++) {
 
             Point rotPoint = rotate(curPoint, theta);
 
             // Вычисляем координаты точки, а затем задаем цвет
-            int xRot = (int) (image.width - Math.floor(((XMAX - rotPoint.x()) / (XMAX - XMIN)) * image.width));
-            int yRot = (int) (image.height - Math.floor(((YMAX - rotPoint.y()) / (YMAX - YMIN)) * image.height));
+            int xRot = (int) (image.width - Math.floor(((xMax - rotPoint.x()) / (xMax - xMin)) * image.width));
+            int yRot = (int) (image.height - Math.floor(((yMax - rotPoint.y()) / (yMax - yMin)) * image.height));
 
             // Если точка попала в область изображения
             if (xRot >= 0 && xRot < image.width && yRot >= 0 && yRot < image.height) {

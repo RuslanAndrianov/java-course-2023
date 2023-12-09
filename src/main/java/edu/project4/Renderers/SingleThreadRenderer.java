@@ -1,23 +1,24 @@
 package edu.project4.Renderers;
 
-import edu.project4.Model.Rect;
-import edu.project4.Transformations.AffineTransformation;
 import edu.project4.Model.FractalImage;
 import edu.project4.Model.Pixel;
 import edu.project4.Model.Point;
-import org.jetbrains.annotations.NotNull;
+import edu.project4.Model.Rect;
+import edu.project4.Transformations.AffineTransformation;
 import java.util.concurrent.ThreadLocalRandom;
+import org.jetbrains.annotations.NotNull;
 
 public class SingleThreadRenderer implements Renderer {
 
-    public void render(FractalImage image, @NotNull String transformType, int affCount, int samples, int iterPerSample, int symmetryAxes) {
+    public void render(FractalImage image, @NotNull String transformType,
+        int affCount, int samples, int iterPerSample, int symmetryAxes) {
 
         // Прямоугольник для генерации точек
         Rect rectangle = new Rect(image, transformType);
-        double XMIN = rectangle.XMIN;
-        double XMAX = rectangle.XMAX;
-        double YMIN = rectangle.YMIN;
-        double YMAX = rectangle.YMAX;
+        double xMin = rectangle.xMin;
+        double xMax = rectangle.xMax;
+        double yMin = rectangle.yMin;
+        double yMax = rectangle.yMax;
 
         // Генерируем affCount аффинных преобразований со стартовыми цветами
         AffineTransformation[] affineTransformations = generateAffineTransformations(affCount);
@@ -25,8 +26,8 @@ public class SingleThreadRenderer implements Renderer {
         for (int num = 0; num < samples; num++) {
 
             // Берем рандомную начальную точку
-            double newX = ThreadLocalRandom.current().nextDouble(XMIN, XMAX);
-            double newY = ThreadLocalRandom.current().nextDouble(YMIN, YMAX);
+            double newX = ThreadLocalRandom.current().nextDouble(xMin, xMax);
+            double newY = ThreadLocalRandom.current().nextDouble(yMin, yMax);
 
             // Первые 20 итераций точку не рисуем, т.к. сначала надо найти начальную
             for (int step = START_STEPS; step < iterPerSample; step++) {
@@ -49,11 +50,12 @@ public class SingleThreadRenderer implements Renderer {
                 if (step >= 0 && curPoint.isInRect(rectangle)) {
 
                     // Вычисляем координаты точки, а затем задаем цвет
-                    int xPixel = (int) (image.width - Math.floor(((XMAX - newX) / (XMAX - XMIN)) * image.width));
-                    int yPixel = (int) (image.height - Math.floor(((YMAX - newY) / (YMAX - YMIN)) * image.height));
+                    int xPixel = (int) (image.width - Math.floor(((xMax - newX) / (xMax - xMin)) * image.width));
+                    int yPixel = (int) (image.height - Math.floor(((yMax - newY) / (yMax - yMin)) * image.height));
 
                     // Если точка попала в область изображения
-                    if (xPixel >= 0 && xPixel < image.width && yPixel >= 0 && yPixel < image.height) {
+                    if (xPixel < image.width && yPixel < image.height) {
+
                         Pixel curPixel = image.pixels[yPixel][xPixel];
                         // то проверяем, первый ли раз попали в нее
                         if (curPixel.hitCount == 0) {

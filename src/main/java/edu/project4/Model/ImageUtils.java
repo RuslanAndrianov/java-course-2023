@@ -1,11 +1,12 @@
 package edu.project4.Model;
 
-import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Path;
+import javax.imageio.ImageIO;
 
+@SuppressWarnings("HideUtilityClassConstructor")
 public class ImageUtils {
 
     public static void save(FractalImage image, Path fileName, ImageFormat format) {

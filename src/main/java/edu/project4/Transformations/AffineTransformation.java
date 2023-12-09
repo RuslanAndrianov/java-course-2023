@@ -3,32 +3,33 @@ package edu.project4.Transformations;
 import java.awt.Color;
 import java.util.concurrent.ThreadLocalRandom;
 
+@SuppressWarnings("MagicNumber")
 public class AffineTransformation {
 
-    public double BOUND = 1.5;
+    public double bound = 1.5;
 
-    public double a = ThreadLocalRandom.current().nextDouble(-BOUND, BOUND);
+    public double a = ThreadLocalRandom.current().nextDouble(-bound, bound);
 
-    public double b = ThreadLocalRandom.current().nextDouble(-BOUND, BOUND);
+    public double b = ThreadLocalRandom.current().nextDouble(-bound, bound);
 
-    public double c = ThreadLocalRandom.current().nextDouble(-BOUND, BOUND);
+    public double c = ThreadLocalRandom.current().nextDouble(-bound, bound);
 
-    public double d = ThreadLocalRandom.current().nextDouble(-BOUND, BOUND);
+    public double d = ThreadLocalRandom.current().nextDouble(-bound, bound);
 
-    public double e = ThreadLocalRandom.current().nextDouble(-BOUND, BOUND);
+    public double e = ThreadLocalRandom.current().nextDouble(-bound, bound);
 
-    public double f = ThreadLocalRandom.current().nextDouble(-BOUND, BOUND);
+    public double f = ThreadLocalRandom.current().nextDouble(-bound, bound);
 
     public Color color = getRandomColor();
 
     public AffineTransformation() {
         while (!isValid(a, b, d, e)) {
-            a = ThreadLocalRandom.current().nextDouble(-BOUND, BOUND);
-            b = ThreadLocalRandom.current().nextDouble(-BOUND, BOUND);
-            c = ThreadLocalRandom.current().nextDouble(-BOUND, BOUND);
-            d = ThreadLocalRandom.current().nextDouble(-BOUND, BOUND);
-            e = ThreadLocalRandom.current().nextDouble(-BOUND, BOUND);
-            f = ThreadLocalRandom.current().nextDouble(-BOUND, BOUND);
+            a = ThreadLocalRandom.current().nextDouble(-bound, bound);
+            b = ThreadLocalRandom.current().nextDouble(-bound, bound);
+            c = ThreadLocalRandom.current().nextDouble(-bound, bound);
+            d = ThreadLocalRandom.current().nextDouble(-bound, bound);
+            e = ThreadLocalRandom.current().nextDouble(-bound, bound);
+            f = ThreadLocalRandom.current().nextDouble(-bound, bound);
             color = getRandomColor();
         }
     }

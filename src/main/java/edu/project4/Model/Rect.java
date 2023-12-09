@@ -1,14 +1,15 @@
 package edu.project4.Model;
 
+@SuppressWarnings("MagicNumber")
 public class Rect {
 
-    public double XMIN;
+    public double xMin;
 
-    public double XMAX;
+    public double xMax;
 
-    public double YMIN;
+    public double yMin;
 
-    public double YMAX;
+    public double yMax;
 
     public Rect(FractalImage image, String transformType) {
 
@@ -21,15 +22,15 @@ public class Rect {
         };
 
         if (image.width > image.height) {
-            XMIN = (double) -image.width / image.height * k;
-            XMAX = -XMIN;
-            YMIN = -k;
-            YMAX = k;
+            xMin = (double) -image.width / image.height * k;
+            xMax = -xMin;
+            yMin = -k;
+            yMax = k;
         } else {
-            XMIN = -k;
-            XMAX = k;
-            YMIN = (double) -image.height / image.width * k;
-            YMAX = -YMIN;
+            xMin = -k;
+            xMax = k;
+            yMin = (double) -image.height / image.width * k;
+            yMax = -yMin;
         }
     }
 }
