@@ -1,12 +1,12 @@
-package edu.project4;
+package edu.project4.Model;
 
 public class FractalImage {
 
-    Pixel[][] pixels;
+    public Pixel[][] pixels;
 
-    int width;
+    public int width;
 
-    int height;
+    public int height;
 
     public FractalImage(Pixel[][] pixels, int width, int height) {
         this.pixels = pixels;

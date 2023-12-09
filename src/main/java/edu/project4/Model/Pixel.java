@@ -1,16 +1,16 @@
-package edu.project4;
+package edu.project4.Model;
 
 public class Pixel {
 
-    int r;
+    public int r;
 
-    int g;
+    public int g;
 
-    int b;
+    public int b;
 
-    int hitCount;
+    public int hitCount;
 
-    double normal;
+    public double normal;
 
     public Pixel(int r, int g, int b, int hitCount) {
         this.r = r;

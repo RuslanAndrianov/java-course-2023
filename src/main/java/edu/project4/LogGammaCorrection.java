@@ -1,11 +1,20 @@
 package edu.project4;
 
+import edu.project4.Model.FractalImage;
+import edu.project4.Model.Pixel;
+import org.jetbrains.annotations.NotNull;
+
 public class LogGammaCorrection {
 
-    void correction(FractalImage image)
+    private final double gamma;
+
+    public LogGammaCorrection(double gamma) {
+        this.gamma = gamma;
+    }
+
+    void correction(@NotNull FractalImage image)
     {
         double max = 0.0;
-        double gamma = 2.7;
         Pixel[][] pixels = image.pixels;
         for (int row = 0; row < image.height; row++)
             for (int col = 0; col < image.width; col++)

@@ -1,4 +1,6 @@
-package edu.project4;
+package edu.project4.Transformations;
+
+import edu.project4.Model.Point;
 
 public class NonlinearTransormations {
 

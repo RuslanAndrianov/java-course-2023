@@ -1,4 +1,4 @@
-package edu.project4;
+package edu.project4.Model;
 
 import javax.imageio.ImageIO;
 import java.awt.Color;
@@ -8,7 +8,7 @@ import java.nio.file.Path;
 
 public class ImageUtils {
 
-    static void save(FractalImage image, Path fileName, ImageFormat format) {
+    public static void save(FractalImage image, Path fileName, ImageFormat format) {
 
         BufferedImage bufferedImage =
             new BufferedImage(image.width, image.height, BufferedImage.TYPE_INT_RGB);
