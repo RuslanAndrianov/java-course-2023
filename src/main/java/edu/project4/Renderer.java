@@ -9,14 +9,16 @@ public class Renderer {
         // heart 2.5
         // disk 0.5
         // sinus 0.5
-        // spherical
+        // spherical 0.5
         double k = 0.5;
+
         // Генерируем affCount аффинных преобразований со стартовыми цветами
         AffineTransformation[] affineTransformations = new AffineTransformation[affCount];
         for (int i = 0; i < affCount; i++) {
             affineTransformations[i] = new AffineTransformation();
         }
 
+        // Прямоугольник
         double XMIN, XMAX, YMIN, YMAX;
         if (image.width > image.height) {
             XMIN = (double) -image.width / image.height * k;
@@ -47,39 +49,50 @@ public class Renderer {
                 double y = affTrans.d * newX + affTrans.e * newY + affTrans.f;
 
                 // Применяем нелинейное преобразование;
-                Point point = NonlinearTransormations.sinusoidal(x, y);
+                Point point = NonlinearTransormations.spherical(x, y);
                 newX = point.x();
                 newY = point.y();
 
                 if (step >= 0 && newX >= XMIN && newX <= XMAX && newY >= YMIN && newY <= YMAX) {
 
-                    double theta = 0;
-                    for (int j = 0; j < symmetry; theta += 2 * Math.PI / symmetry, j++) {
+                    // Вычисляем координаты точки, а затем задаем цвет
+                    int x1 = (int) (image.width - Math.floor(((XMAX - newX) / (XMAX - XMIN)) * image.width));
+                    int y1 = (int) (image.height - Math.floor(((YMAX - newY) / (YMAX - YMIN)) * image.height));
 
-                        // Вычисляем координаты точки, а затем задаем цвет
-                        int x1 = (int) (image.width - Math.floor(((XMAX - newX) / (XMAX - XMIN)) * image.width));
-                        int y1 = (int) (image.height - Math.floor(((YMAX - newY) / (YMAX - YMIN)) * image.height));
-                        Point curPoint = new Point(x1, y1);
-                        Point rotPoint = rotate(curPoint, theta);
+                    // Если точка попала в область изображения
+                    if (x1 >= 0 && x1 < image.width && y1 >= 0 && y1 < image.height) {
+                        Pixel curPixel = image.pixels[y1][x1];
+                        // то проверяем, первый ли раз попали в нее
+                        if (curPixel.hitCount == 0) {
+                            // Попали в первый раз, берем стартовый цвет у соответствующего аффинного преобразования
+                            curPixel.r = affTrans.color.getRed();
+                            curPixel.g = affTrans.color.getGreen();
+                            curPixel.b = affTrans.color.getBlue();
+                        } else {
+                            // Попали не в первый раз, считаем так:
+                            curPixel.r = (curPixel.r + affTrans.color.getRed()) / 2;
+                            curPixel.g = (curPixel.g + affTrans.color.getGreen()) / 2;
+                            curPixel.b = (curPixel.b + affTrans.color.getBlue()) / 2;
+                        }
+                        // Увеличиваем счетчик точки на единицу
+                        curPixel.hitCount++;
 
-                        // Если точка попала в область изображения
-                        if (x1 < image.width && y1 < image.height) {
-                            Pixel curPixel = image.pixels[y1][x1];
-                            // то проверяем, первый ли раз попали в нее
-                            if (curPixel.hitCount == 0) {
-                                // Попали в первый раз, берем стартовый цвет у соответствующего аффинного преобразования
-                                curPixel.r = affTrans.color.getRed();
-                                curPixel.g = affTrans.color.getGreen();
-                                curPixel.b = affTrans.color.getBlue();
-                            } else {
-                                // Попали не в первый раз, считаем так:
-                                curPixel.r = (curPixel.r + affTrans.color.getRed()) / 2;
-                                curPixel.g = (curPixel.g + affTrans.color.getGreen()) / 2;
-                                curPixel.b = (curPixel.b + affTrans.color.getBlue()) / 2;
+                        double theta = 0;
+                        Point curPoint = new Point(newX, newY);
+                        for (int j = 0; j < symmetry; theta += 2 * Math.PI / symmetry, j++) {
+                            Point rotPoint = rotate(curPoint, theta);
+                            // Вычисляем координаты точки, а затем задаем цвет
+                            int xRot = (int) (image.width - Math.floor(((XMAX - rotPoint.x()) / (XMAX - XMIN)) * image.width));
+                            int yRot = (int) (image.height - Math.floor(((YMAX - rotPoint.y()) / (YMAX - YMIN)) * image.height));
+
+                            // Если точка попала в область изображения
+                            if (xRot >= 0 && xRot < image.width && yRot >= 0 && yRot < image.height) {
+                                Pixel rotPixel = image.pixels[yRot][xRot];
+                                rotPixel.r = curPixel.r;
+                                rotPixel.g = curPixel.g;
+                                rotPixel.b = curPixel.b;
+                                rotPixel.hitCount = curPixel.hitCount;
                             }
-                            // Увеличиваем счетчик точки на единицу
-                            curPixel.hitCount++;
-
                         }
                     }
                 }
