@@ -21,7 +21,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        String strPath = "C:\\Users\\rusla\\Desktop\\Программирование\\Java\\java-course-2023";
+        String strPath = System.getProperty("user.dir");
         int number = 200;
         Path path = Path.of(strPath);
         List<Path> directories = findDirectories(path, number);
