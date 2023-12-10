@@ -1,12 +1,12 @@
 package edu.hw9.Task3.Solvers;
 
+import edu.hw9.Task3.Model.Cell;
+import edu.hw9.Task3.Model.Coordinate;
+import edu.hw9.Task3.Model.Maze;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
-import edu.hw9.Task3.Model.Cell;
-import edu.hw9.Task3.Model.Coordinate;
-import edu.hw9.Task3.Model.Maze;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import static edu.hw9.Task3.Model.CellType.PASSAGE;

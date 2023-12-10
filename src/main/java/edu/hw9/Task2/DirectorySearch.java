@@ -10,6 +10,7 @@ import java.util.concurrent.RecursiveTask;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@SuppressWarnings("RegexpSinglelineJava")
 public class DirectorySearch extends RecursiveTask<AbstractMap.SimpleEntry<List<Path>, Integer>> {
 
     private final Path root;

@@ -1,6 +1,5 @@
 package edu.hw9.Task3;
 
-import java.util.Scanner;
 import edu.hw9.Task3.Generators.BFSGenerator;
 import edu.hw9.Task3.Generators.DFSGenerator;
 import edu.hw9.Task3.Model.Coordinate;
@@ -8,6 +7,7 @@ import edu.hw9.Task3.Model.Maze;
 import edu.hw9.Task3.Solvers.BFSSolver;
 import edu.hw9.Task3.Solvers.DFSSolver;
 import edu.hw9.Task3.Solvers.DFSSolverMultiThread;
+import java.util.Scanner;
 import org.jetbrains.annotations.NotNull;
 import static edu.hw9.Task3.Model.CellType.WALL;
 

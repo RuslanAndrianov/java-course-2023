@@ -1,9 +1,9 @@
 package edu.hw9.Task3.Generators;
 
-import java.util.List;
-import java.util.Stack;
 import edu.hw9.Task3.Model.Cell;
 import edu.hw9.Task3.Model.Maze;
+import java.util.List;
+import java.util.Stack;
 import org.jetbrains.annotations.NotNull;
 import static edu.hw9.Task3.Model.CellType.PASSAGE;
 

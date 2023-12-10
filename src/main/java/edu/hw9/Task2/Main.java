@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 
+@SuppressWarnings({"HideUtilityClassConstructor", "MagicNumber", "RegexpSinglelineJava"})
 public class Main {
 
     public static List<Path> findDirectories(Path root, int requiredFilesNumber) {

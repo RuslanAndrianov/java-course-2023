@@ -9,6 +9,7 @@ import java.util.concurrent.RecursiveTask;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@SuppressWarnings({"RegexpSinglelineJava", })
 public class FileSearch extends RecursiveTask<List<Path>> {
 
     private final Path root;

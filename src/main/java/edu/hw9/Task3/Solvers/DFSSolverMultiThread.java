@@ -3,7 +3,6 @@ package edu.hw9.Task3.Solvers;
 import edu.hw9.Task3.Model.Cell;
 import edu.hw9.Task3.Model.Coordinate;
 import edu.hw9.Task3.Model.Maze;
-import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -11,16 +10,17 @@ import java.util.Stack;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import org.jetbrains.annotations.NotNull;
 import static edu.hw9.Task3.Model.CellType.PASSAGE;
 import static edu.hw9.Task3.Model.CellType.PATH;
 import static edu.hw9.Task3.Model.CellType.VISITED;
 
-@SuppressWarnings({"MagicNumber"})
+@SuppressWarnings({"MagicNumber", "HideUtilityClassConstructor", "RegexpSinglelineJava"})
 public class DFSSolverMultiThread {
 
     private static final int NUMBER_OF_THREADS = 10;
 
-    private static final ExecutorService executorService = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+    private static final ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     private static void executeFunc(Maze maze, @NotNull Stack<Cell> stack, Cell endCell) {
         synchronized (stack) {
@@ -53,9 +53,9 @@ public class DFSSolverMultiThread {
         Stack<Cell> stack = new Stack<>();
         stack.push(startCell);
 
-        executorService.execute(() -> executeFunc(maze, stack, endCell));
+        EXECUTOR_SERVICE.execute(() -> executeFunc(maze, stack, endCell));
         try {
-            executorService.awaitTermination(500, TimeUnit.MILLISECONDS);
+            EXECUTOR_SERVICE.awaitTermination(500, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             System.out.println("Interrupted exception!");
         }
