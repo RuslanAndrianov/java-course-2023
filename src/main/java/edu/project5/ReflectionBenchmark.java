@@ -1,5 +1,14 @@
 package edu.project5;
 
+import java.lang.invoke.CallSite;
+import java.lang.invoke.LambdaMetafactory;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.Scope;
@@ -11,16 +20,8 @@ import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 import org.openjdk.jmh.runner.options.TimeValue;
-import java.lang.invoke.CallSite;
-import java.lang.invoke.LambdaMetafactory;
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
-import java.lang.invoke.MethodType;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
 
+@SuppressWarnings({"UncommentedMain", "MagicNumber", "InnerTypeLast"})
 @State(Scope.Thread)
 public class ReflectionBenchmark {
     public static void main(String[] args) throws RunnerException {
@@ -54,13 +55,15 @@ public class ReflectionBenchmark {
 
     @Setup
     public void setup() throws Throwable {
+        String methodName = "name";
+
         student = new Student("Ruslan", "Andrianov");
 
-        method = Student.class.getMethod("name");
+        method = Student.class.getMethod(methodName);
         method.setAccessible(true);
 
         methodHandle = MethodHandles.lookup()
-            .findGetter(Student.class, "name", String.class);
+            .findGetter(Student.class, methodName, String.class);
 
         MethodHandles.Lookup caller = MethodHandles.lookup();
         CallSite site = LambdaMetafactory.metafactory(
@@ -68,7 +71,7 @@ public class ReflectionBenchmark {
             "apply",
             MethodType.methodType(Function.class),
             MethodType.methodType(Object.class, Object.class),
-            caller.findVirtual(Student.class, "name", MethodType.methodType(String.class)),
+            caller.findVirtual(Student.class, methodName, MethodType.methodType(String.class)),
             MethodType.methodType(String.class, Student.class)
         );
         MethodHandle factory = site.getTarget();
